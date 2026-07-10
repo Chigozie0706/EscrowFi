@@ -1,11 +1,17 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Upload, Github, Globe, ArrowLeft, FileText } from "lucide-react";
+import { Upload, Globe, ArrowLeft, FileText } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -19,13 +25,13 @@ export function SubmitWork() {
     description: "",
     githubUrl: "",
     demoUrl: "",
-    notes: ""
+    notes: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success("Work submitted successfully!", {
-      description: "The client will review your submission."
+      description: "The client will review your submission.",
     });
     setTimeout(() => {
       router.push(`/dashboard/escrow/${id}`);
@@ -46,7 +52,9 @@ export function SubmitWork() {
         </Link>
 
         <h1 className="text-3xl font-bold mb-2">Submit Work</h1>
-        <p className="text-muted-foreground">Upload your completed work for client review</p>
+        <p className="text-muted-foreground">
+          Upload your completed work for client review
+        </p>
       </motion.div>
 
       <motion.div
@@ -58,7 +66,8 @@ export function SubmitWork() {
           <CardHeader>
             <CardTitle>Proof of Work</CardTitle>
             <CardDescription>
-              Provide all deliverables and documentation for the client to review
+              Provide all deliverables and documentation for the client to
+              review
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -69,7 +78,9 @@ export function SubmitWork() {
                   id="description"
                   placeholder="Describe what you've completed and any important details the client should know..."
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                   className="bg-input-background border-border/40 min-h-32 resize-none"
                   required
                 />
@@ -83,18 +94,15 @@ export function SubmitWork() {
                       <Upload className="w-8 h-8 text-[#7C3AED]" />
                     </div>
                     <div>
-                      <p className="font-medium mb-1">Click to upload or drag and drop</p>
+                      <p className="font-medium mb-1">
+                        Click to upload or drag and drop
+                      </p>
                       <p className="text-sm text-muted-foreground">
                         PDF, ZIP, or any file type (Max 50MB)
                       </p>
                     </div>
                   </div>
-                  <input
-                    type="file"
-                    multiple
-                    className="hidden"
-                    id="files"
-                  />
+                  <input type="file" multiple className="hidden" id="files" />
                 </div>
               </div>
 
@@ -102,13 +110,15 @@ export function SubmitWork() {
                 <div className="space-y-2">
                   <Label htmlFor="github">GitHub Repository (Optional)</Label>
                   <div className="relative">
-                    <Github className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    {/* <Github className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" /> */}
                     <Input
                       id="github"
                       type="url"
                       placeholder="https://github.com/..."
                       value={formData.githubUrl}
-                      onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, githubUrl: e.target.value })
+                      }
                       className="bg-input-background border-border/40 pl-10"
                     />
                   </div>
@@ -123,7 +133,9 @@ export function SubmitWork() {
                       type="url"
                       placeholder="https://..."
                       value={formData.demoUrl}
-                      onChange={(e) => setFormData({ ...formData, demoUrl: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, demoUrl: e.target.value })
+                      }
                       className="bg-input-background border-border/40 pl-10"
                     />
                   </div>
@@ -136,7 +148,9 @@ export function SubmitWork() {
                   id="notes"
                   placeholder="Any additional information, instructions, or comments for the client..."
                   value={formData.notes}
-                  onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, notes: e.target.value })
+                  }
                   className="bg-input-background border-border/40 min-h-24 resize-none"
                 />
               </div>
@@ -145,9 +159,13 @@ export function SubmitWork() {
                 <div className="flex gap-3">
                   <FileText className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
                   <div className="text-sm">
-                    <p className="font-semibold mb-1 text-yellow-500">Important</p>
+                    <p className="font-semibold mb-1 text-yellow-500">
+                      Important
+                    </p>
                     <p className="text-muted-foreground">
-                      Once you submit your work, the client will be notified to review. Make sure all files and links are correct before submitting.
+                      Once you submit your work, the client will be notified to
+                      review. Make sure all files and links are correct before
+                      submitting.
                     </p>
                   </div>
                 </div>
