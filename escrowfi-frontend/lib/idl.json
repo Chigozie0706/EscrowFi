@@ -1,0 +1,541 @@
+{
+    "version": "0.1.0",
+    "name": "escrowfi",
+    "instructions": [
+        {
+            "name": "createEscrow",
+            "accounts": [
+                {
+                    "name": "escrow",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "client",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "freelancer",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "escrowId",
+                    "type": "u64"
+                },
+                {
+                    "name": "amount",
+                    "type": "u64"
+                },
+                {
+                    "name": "deadline",
+                    "type": "i64"
+                },
+                {
+                    "name": "description",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "acceptJob",
+            "accounts": [
+                {
+                    "name": "escrow",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "freelancer",
+                    "isMut": false,
+                    "isSigner": true
+                }
+            ],
+            "args": []
+        },
+        {
+            "name": "deposit",
+            "accounts": [
+                {
+                    "name": "escrow",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "client",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": []
+        },
+        {
+            "name": "submitProof",
+            "accounts": [
+                {
+                    "name": "escrow",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "freelancer",
+                    "isMut": false,
+                    "isSigner": true
+                }
+            ],
+            "args": [
+                {
+                    "name": "proofUrl",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "releasePayment",
+            "accounts": [
+                {
+                    "name": "escrow",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "freelancer",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "client",
+                    "isMut": false,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": []
+        },
+        {
+            "name": "cancel",
+            "accounts": [
+                {
+                    "name": "escrow",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "client",
+                    "isMut": false,
+                    "isSigner": true
+                }
+            ],
+            "args": []
+        },
+        {
+            "name": "refund",
+            "accounts": [
+                {
+                    "name": "escrow",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "client",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": []
+        },
+        {
+            "name": "closeEscrow",
+            "accounts": [
+                {
+                    "name": "escrow",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "client",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": []
+        }
+    ],
+    "accounts": [
+        {
+            "name": "EscrowState",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "escrowId",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "client",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "freelancer",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "amount",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "deadline",
+                        "type": "i64"
+                    },
+                    {
+                        "name": "status",
+                        "type": {
+                            "defined": "EscrowStatus"
+                        }
+                    },
+                    {
+                        "name": "proofUrl",
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "type": "string"
+                    },
+                    {
+                        "name": "createdAt",
+                        "type": "i64"
+                    },
+                    {
+                        "name": "acceptedAt",
+                        "type": "i64"
+                    },
+                    {
+                        "name": "fundedAt",
+                        "type": "i64"
+                    },
+                    {
+                        "name": "completedAt",
+                        "type": "i64"
+                    },
+                    {
+                        "name": "bump",
+                        "type": "u8"
+                    },
+                    {
+                        "name": "vaultBump",
+                        "type": "u8"
+                    }
+                ]
+            }
+        }
+    ],
+    "types": [
+        {
+            "name": "EscrowStatus",
+            "type": {
+                "kind": "enum",
+                "variants": [
+                    {
+                        "name": "Created"
+                    },
+                    {
+                        "name": "Accepted"
+                    },
+                    {
+                        "name": "Funded"
+                    },
+                    {
+                        "name": "ProofSubmitted"
+                    },
+                    {
+                        "name": "Completed"
+                    },
+                    {
+                        "name": "Cancelled"
+                    }
+                ]
+            }
+        }
+    ],
+    "events": [
+        {
+            "name": "EscrowCreated",
+            "fields": [
+                {
+                    "name": "escrowId",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "client",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "freelancer",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "amount",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "deadline",
+                    "type": "i64",
+                    "index": false
+                },
+                {
+                    "name": "description",
+                    "type": "string",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "JobAccepted",
+            "fields": [
+                {
+                    "name": "escrowId",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "freelancer",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "acceptedAt",
+                    "type": "i64",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "EscrowFunded",
+            "fields": [
+                {
+                    "name": "escrowId",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "amount",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "fundedAt",
+                    "type": "i64",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "ProofSubmitted",
+            "fields": [
+                {
+                    "name": "escrowId",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "freelancer",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "proofUrl",
+                    "type": "string",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "PaymentReleased",
+            "fields": [
+                {
+                    "name": "escrowId",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "freelancer",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "amount",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "completedAt",
+                    "type": "i64",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "EscrowRefunded",
+            "fields": [
+                {
+                    "name": "escrowId",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "client",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "amount",
+                    "type": "u64",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "EscrowCancelled",
+            "fields": [
+                {
+                    "name": "escrowId",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "client",
+                    "type": "publicKey",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "EscrowClosed",
+            "fields": [
+                {
+                    "name": "escrowId",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "client",
+                    "type": "publicKey",
+                    "index": false
+                }
+            ]
+        }
+    ],
+    "errors": [
+        {
+            "code": 6000,
+            "name": "InvalidStatus",
+            "msg": "Escrow status does not allow this action"
+        },
+        {
+            "code": 6001,
+            "name": "Unauthorized",
+            "msg": "You are not authorized for this action"
+        },
+        {
+            "code": 6002,
+            "name": "InvalidAmount",
+            "msg": "Amount must be greater than zero"
+        },
+        {
+            "code": 6003,
+            "name": "DeadlineInPast",
+            "msg": "Deadline must be in the future"
+        },
+        {
+            "code": 6004,
+            "name": "DeadlinePassed",
+            "msg": "Deadline has already passed"
+        },
+        {
+            "code": 6005,
+            "name": "DeadlineNotPassed",
+            "msg": "Deadline has not passed yet — refund not available"
+        },
+        {
+            "code": 6006,
+            "name": "DescriptionTooLong",
+            "msg": "Description must be 200 characters or less"
+        },
+        {
+            "code": 6007,
+            "name": "ProofUrlEmpty",
+            "msg": "Proof URL cannot be empty"
+        },
+        {
+            "code": 6008,
+            "name": "ProofUrlTooLong",
+            "msg": "Proof URL must be 200 characters or less"
+        },
+        {
+            "code": 6009,
+            "name": "CannotCancel",
+            "msg": "Cannot cancel: escrow has funds — use refund after deadline"
+        },
+        {
+            "code": 6010,
+            "name": "CannotClose",
+            "msg": "Cannot close: escrow must be Completed or Cancelled first"
+        }
+    ]
+}
