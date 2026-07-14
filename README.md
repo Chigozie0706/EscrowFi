@@ -12,7 +12,7 @@ EscrowFi is a decentralized escrow platform for freelance work, built on Solana.
 
 **The problem:** Freelancers get scammed by clients who refuse to pay after work is delivered. Clients get scammed by freelancers who disappear after receiving payment. Traditional escrow services are slow, expensive, and require trusting a third party.
 
-**The solution:** An on-chain escrow where SOL is locked in a PDA vault and released only when the client approves the freelancer's proof of delivery — enforced by code, not contracts.
+**The solution:** An on-chain escrow where SOL is locked in a PDA vault and released only when the client approves the freelancer's proof of delivery — enforced by code, not contracts
 
 ---
 
