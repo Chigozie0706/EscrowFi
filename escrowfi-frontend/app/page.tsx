@@ -157,7 +157,7 @@ export function LandingPage() {
               </button>
             </div>
 
-            <div className="flex items-center gap-4">
+            {/* <div className="flex items-center gap-4">
               <Link href="/dashboard">
                 <Button variant="ghost">Sign In</Button>
               </Link>
@@ -167,7 +167,7 @@ export function LandingPage() {
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </nav>
@@ -211,7 +211,7 @@ export function LandingPage() {
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
-              <Link href="/dashboard/freelancer">
+              <Link href="/dashboard/my-escrows">
                 <Button size="lg" variant="outline" className="h-12 px-8">
                   Browse Jobs
                 </Button>

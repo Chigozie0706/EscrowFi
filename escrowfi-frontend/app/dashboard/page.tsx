@@ -27,14 +27,14 @@ const stats = [
     trend: "up",
     color: "text-[#14F195]",
   },
-  {
-    title: "Active Jobs",
-    value: "8",
-    change: "+2",
-    icon: Briefcase,
-    trend: "up",
-    color: "text-[#7C3AED]",
-  },
+  // {
+  //   title: "Active Jobs",
+  //   value: "8",
+  //   change: "+2",
+  //   icon: Briefcase,
+  //   trend: "up",
+  //   color: "text-[#7C3AED]",
+  // },
   {
     title: "Completed Jobs",
     value: "124",

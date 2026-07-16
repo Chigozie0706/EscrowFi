@@ -29,18 +29,18 @@ import { shortAddress } from "@/lib/escrowfi";
 import { toast } from "sonner";
 
 const navItems = [
-  { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
+  // { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
   { icon: FileText, label: "My Escrows", path: "/dashboard/my-escrows" },
   {
     icon: PlusCircle,
     label: "Create Escrow",
     path: "/dashboard/create-escrow",
   },
-  { icon: Briefcase, label: "Active Jobs", path: "/dashboard/active-jobs" },
-  { icon: Wallet, label: "Payments", path: "/dashboard/payments" },
-  { icon: Bell, label: "Notifications", path: "/dashboard/notifications" },
-  { icon: User, label: "Profile", path: "/dashboard/profile" },
-  { icon: Settings, label: "Settings", path: "/dashboard/settings" },
+  // { icon: Briefcase, label: "Active Jobs", path: "/dashboard/active-jobs" },
+  // { icon: Wallet, label: "Payments", path: "/dashboard/payments" },
+  // { icon: Bell, label: "Notifications", path: "/dashboard/notifications" },
+  // { icon: User, label: "Profile", path: "/dashboard/profile" },
+  // { icon: Settings, label: "Settings", path: "/dashboard/settings" },
 ];
 
 function WalletPanel() {
